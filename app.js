@@ -31,6 +31,10 @@ function verificarIntento() {
         limpiarCaja();
     }
     intentos++;
+    if(intentosMaximos==numerosJugados.length){
+        asignarTextoElemento('p','CORRECTO! Descubriste todos los números');
+        document.getElementById('reiniciar').setAttribute('disabled','true');
+    }    
     return;
 }
 
@@ -46,20 +50,15 @@ function limpiarCaja() {
 function generarNumeroSecreto() {
     let numeroGenerado=Math.floor(Math.random() * intentosMaximos) + 1;
     // Si ya se usaron todos los numeros
-    if(intentosMaximos==numerosJugados.length){
-        asignarTextoElemento('p','JUEGO FINALIZADO');
-
-    }else{
-        // Si ya se uso ese numero, se vuelve a llamar a la funcion para que genere otro (recursividad)
-        if(numerosJugados.includes(numeroGenerado)){
+    // Si ya se uso ese numero, se vuelve a llamar a la funcion para que genere otro (recursividad)
+    if(numerosJugados.includes(numeroGenerado)){
             return generarNumeroSecreto();
-        }else{
-            // Se agrega a la lista y se retorna ese numero
-            numerosJugados.push(numeroGenerado);
-            // muestra la lista
-            console.log(numerosJugados);
-            return numeroGenerado;
-        }
+    }else{
+        // Se agrega a la lista y se retorna ese numero
+        numerosJugados.push(numeroGenerado);
+        // muestra la lista
+        console.log(numerosJugados);
+        return numeroGenerado;
     }
 }
 
